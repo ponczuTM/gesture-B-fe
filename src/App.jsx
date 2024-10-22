@@ -1,6 +1,5 @@
-//2160 x 5120
-
 import React, { useEffect, useState } from "react";
+import "./App.css"; 
 
 const App = () => {
   const [distance, setDistance] = useState("Loading...");
@@ -15,6 +14,9 @@ const App = () => {
       if (!isBlocked) {
         if (["AB", "01", "02", "03"].includes(data.distance)) {
           setDistance("AB");
+          setIsBlocked(true);
+        } else if (["05", "04", "06"].includes(data.distance)) {
+          setDistance(data.distance);
           setIsBlocked(true);
         } else {
           setDistance(data.distance);
@@ -51,18 +53,21 @@ const App = () => {
       );
     } else if (["05", "04", "06"].includes(distance)) {
       return (
-        <video
-          src="2_cz_podejdz.mp4"
-          autoPlay
-          loop
-          style={{
-            width: "100%",
-            height: "auto",
-            maxHeight: "100vh",
-            objectFit: "contain",
-          }}
-          volume={1.0}
-        />
+        <div className="video-container">
+          <video
+            src="2_cz_podejdz.mp4"
+            autoPlay
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "100vh",
+              objectFit: "contain",
+            }}
+            volume={1.0}
+            onEnded={handleVideoEnd}
+          />
+          <div className="message">PODEJDŹ BLIŻEJ</div>
+        </div>
       );
     } else if (["02", "01", "AB", "03"].includes(distance)) {
       return (
@@ -99,3 +104,5 @@ const App = () => {
 
   return <div>{renderContent()}</div>;
 };
+
+export default App;
