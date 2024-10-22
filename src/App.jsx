@@ -37,7 +37,7 @@ const App = () => {
     setCanReactToChange(false);
     setTimeout(() => {
       setCanReactToChange(true);
-    }, 4000);
+    }, 5000);
   };
 
   const renderContent = () => {
@@ -53,7 +53,6 @@ const App = () => {
             maxHeight: "100vh",
             objectFit: "contain",
           }}
-          volume={0.1}
         />
       );
     } else if (["05", "06", "07"].includes(distance)) {
