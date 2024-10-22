@@ -47,6 +47,7 @@ const App = () => {
           src="1_cz_logo.mp4"
           autoPlay
           loop
+          muted
           style={{
             width: "100%",
             height: "auto",
@@ -61,6 +62,7 @@ const App = () => {
           <video
             src="2_cz_podejdz.mp4"
             autoPlay
+            loop
             onPlay={handleVideoStart}
             style={{
               width: "100%",
