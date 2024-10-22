@@ -12,10 +12,10 @@ const App = () => {
       const data = JSON.parse(event.data);
 
       if (!isBlocked) {
-        if (["AB", "01", "02", "03"].includes(data.distance)) {
+        if (["AB", "01", "02", "03", "04"].includes(data.distance)) {
           setDistance("AB");
           setIsBlocked(true);
-        } else if (["05", "04", "06"].includes(data.distance)) {
+        } else if (["05", "06", "07"].includes(data.distance)) {
           setDistance(data.distance);
           setIsBlocked(true);
         } else {
@@ -36,7 +36,7 @@ const App = () => {
   };
 
   const renderContent = () => {
-    if (["07", "XX"].includes(distance)) {
+    if (["XX"].includes(distance)) {
       return (
         <video
           src="1_cz_logo.mp4"
@@ -48,10 +48,10 @@ const App = () => {
             maxHeight: "100vh",
             objectFit: "contain",
           }}
-          volume={1.0}
+          volume={0.1}
         />
       );
-    } else if (["05", "04", "06"].includes(distance)) {
+    } else if (["05", "06", "07"].includes(distance)) {
       return (
         <div className="video-container">
           <video
@@ -69,7 +69,7 @@ const App = () => {
           <div className="message">PODEJDŹ BLIŻEJ</div>
         </div>
       );
-    } else if (["02", "01", "AB", "03"].includes(distance)) {
+    } else if (["02", "01", "AB", "03", "04"].includes(distance)) {
       return (
         <video
           src="3_cz_robot.mp4"
