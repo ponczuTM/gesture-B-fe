@@ -11,11 +11,11 @@ const App = () => {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.distance && !isBlocked) {
-        if (data.distance === "AB") {
-          setIsBlocked(true);
+
+      if (!isBlocked) {
+        if (["AB", "01", "02", "03"].includes(data.distance)) {
           setDistance("AB");
-          setTimeout(() => setIsBlocked(false), 5000);
+          setIsBlocked(true);
         } else {
           setDistance(data.distance);
         }
@@ -29,75 +29,73 @@ const App = () => {
     };
   }, [isBlocked]);
 
+  const handleVideoEnd = () => {
+    setIsBlocked(false);
+  };
+
   const renderContent = () => {
-    if (["06", "07", "XX"].includes(distance)) {
+    if (["07", "XX"].includes(distance)) {
       return (
         <video
-          src="exon1.mp4"
+          src="1_cz_logo.mp4"
           autoPlay
           loop
-          muted
           style={{
             width: "100%",
             height: "auto",
             maxHeight: "100vh",
             objectFit: "contain",
           }}
+          volume={1.0}
         />
       );
-    } else if (["05", "04", "03"].includes(distance)) {
-      return (
-        <img
-          src="exon2.png"
-          alt="Exon2"
-          style={{
-            width: "100%",
-            height: "auto",
-            maxHeight: "100vh",
-            objectFit: "contain",
-          }}
-        />
-      );
-    } else if (["02", "01"].includes(distance)) {
-      return (
-        <img
-          src="exon3.png"
-          alt="Exon3"
-          style={{
-            width: "100%",
-            height: "auto",
-            maxHeight: "100vh",
-            objectFit: "contain",
-          }}
-        />
-      );
-    } else if (distance === "AB") {
+    } else if (["05", "04", "06"].includes(distance)) {
       return (
         <video
-          src="robot_4k_h264_60fps.mp4"
+          src="2_cz_podejdz.mp4"
           autoPlay
           loop
-          muted
           style={{
             width: "100%",
             height: "auto",
             maxHeight: "100vh",
             objectFit: "contain",
           }}
+          volume={1.0}
+        />
+      );
+    } else if (["02", "01", "AB", "03"].includes(distance)) {
+      return (
+        <video
+          src="3_cz_robot.mp4"
+          autoPlay
+          style={{
+            width: "100%",
+            height: "auto",
+            maxHeight: "100vh",
+            objectFit: "contain",
+          }}
+          volume={1.0}
+          onEnded={handleVideoEnd}
+        />
+      );
+    } else {
+      return (
+        <video
+          src="1_cz_logo.mp4"
+          autoPlay
+          loop
+          style={{
+            width: "100%",
+            height: "auto",
+            maxHeight: "100vh",
+            objectFit: "contain",
+          }}
+          volume={1.0}
         />
       );
     }
-    //  else {
-    //     return (
-    //         <div style={{ textAlign: 'center', marginTop: '50px' }}>
-    //             <h1>Aktualny dystans:</h1>
-    //             <h2>{distance}</h2>
-    //         </div>
-    //     );
-    // }
   };
 
   return <div>{renderContent()}</div>;
 };
-
-export default App;
